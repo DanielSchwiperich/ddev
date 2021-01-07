@@ -181,6 +181,7 @@ func handleConfigRun(cmd *cobra.Command, args []string) {
 		util.Failed("Failed to process hook 'pre-config'")
 	}
 
+	// If no flags are provided, prompt for configuration
 	if cmd.Flags().NFlag() == 0 {
 		err = app.PromptForConfig()
 		if err != nil {
@@ -316,6 +317,8 @@ func init() {
 	ConfigCommand.Flags().Bool("disable-settings-management", false, "Prevent ddev from creating or updating CMS settings files")
 
 	ConfigCommand.Flags().String("composer-version", "", `Specify override for composer version in web container. This may be "", "1", "2", or a specific version.`)
+
+	ConfigCommand.Flags().Bool("auto", true, `Automatically run config without prompting.`)
 
 	RootCmd.AddCommand(ConfigCommand)
 }
